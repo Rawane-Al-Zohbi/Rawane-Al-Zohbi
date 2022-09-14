@@ -1,15 +1,32 @@
 
 var services = document.getElementById('Services');
-var about=document.getElementById('rawane');
 
-var Orig_content=`<div class="col-sm-4">
-<div class="main-service text-right">
-    <div class="rectangle">
-        <i class="fa fa-calendar" aria-hidden="true"></i>
-    </div><!-- /.rectangle -->
-    <h3>svc</h3>
-    <p >description</p>
-</div><!-- /.main-service -->`
+var Orig_content=`<div>
+<h4 class="title" style="font-family: cursive; "><a href="">svc</a></h4>
+<br>
+<p class="description" style="font-family: cursive; ">OK</p>
+</div>`
+
+fetch('https://shrouded-lowlands-59927.herokuapp.com/services')
+  .then(response => response.json())
+  .then(json => {
+    json.services.forEach(element => {
+        debugger;
+     var content = Orig_content;
+     content = content.replace('svc',element.A);
+     console.log(content)
+     content = content.replace('OK',element.B);
+     console.log(content)
+        
+     var service = document.createElement('div')
+     service.innerHTML = content;
+     service.className = 'col-lg-4 col-md-6 icon-box';
+     services.appendChild(service)
+        
+    });
+  })
+
+  var about=document.getElementById('rawane');
 
 var original=` <div class="col-sm-3 col-xs-6">
 <div class="feature-about">
@@ -50,37 +67,19 @@ var original=` <div class="col-sm-3 col-xs-6">
                     </div>
                 </div>
              </div>*/
-fetch('https://shrouded-lowlands-59927.herokuapp.com/services')
+
+ fetch('https://shrouded-lowlands-59927.herokuapp.com/services')
   .then(response => response.json())
   .then(json => {
     json.services.forEach(element => {
-        debugger;
-     var content = Orig_Content;
-     content = content.replace('svc',element.A);
-     console.log(content)
-     content = content.replace('description',element.B);
-     console.log(content)
-        
-     var service = document.createElement('div')
-     service.innerHTML = content;
-     service.className = 'col-lg-4 col-md-6 icon-box';
-     services.appendChild(service)
-        
-    });
-  })
-
-  fetch('https://shrouded-lowlands-59927.herokuapp.com/myself')
-  .then(response => response.json())
-  .then(json => {
-    json.Rawane.forEach(element => {
      var content = original;
-     content = content.replace('title',element.A);
-     content = content.replace('explication',element.B);
+    content = content.replace('title',element.C);
+     content = content.replace('explication',element.D);
         
      var abt = document.createElement('div')
      abt.innerHTML = content;
-     abt.className = 'col-lg-4 col-md-6 icon-box';
-     about.appendChild(service)
+    // abt.className = 'col-lg-4 col-md-6 icon-box';
+     about.appendChild(abt )
         
     });
   })
